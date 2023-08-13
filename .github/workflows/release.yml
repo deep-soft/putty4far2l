@@ -63,8 +63,8 @@ jobs:
           cd build
           mkdir ${{ matrix.platform_sln }}
           cd ${{ matrix.platform_sln }}
-          cmake ../.. -DCMAKE_BUILD_TYPE=Release -A ${{ matrix.platform_sln }}
-          cmake --build .
+          cmake ../.. -DCMAKE_BUILD_TYPE=${{ matrix.build_config }} -A ${{ matrix.platform_sln }}
+          cmake --build -DCMAKE_BUILD_TYPE=${{ matrix.build_config }} .
           cd ..
           cd ..
 
@@ -75,6 +75,34 @@ jobs:
         with:
           type: 'zip'
           filename: '${{ env.PRG_NAME }}.${{ matrix.build_config }}.${{ matrix.platform_sln }}.${{ env.VERSION }}.zip'
+          directory: 'build/${{ matrix.platform_sln }}/${{ matrix.build_config }}'
+          exclusions: '*.map *.pdb'
+          recursive_exclusions: '*.map *.pdb changelog'
+          path: '.'
+
+      - name: Upload zip
+        continue-on-error: true
+        uses: deep-soft/upload-artifact@main
+        with:
+          name: ${{ env.PRG_NAME }}.${{ matrix.build_config }}.${{ matrix.platform_name }}.${{ env.VERSION }}.zip
+          path: ${{ env.ZIP_RELEASE_ARCHIVE }}
+
+      - name: Publish
+        continue-on-error: true
+        uses: deep-soft/action-gh-release@v1
+        with:
+          tag_name: ${{ env.TAG_NAME }}-${{ env.VERSION }}
+          draft: true
+          files: |
+            ${{ env.ZIP_RELEASE_ARCHIVE }}
+
+      - name: Create Zip Archive Release - All
+        # archive name is ${{ env.ZIP_RELEASE_ARCHIVE }}
+        continue-on-error: true
+        uses: deep-soft/zip-release@v2
+        with:
+          type: 'zip'
+          filename: '${{ env.PRG_NAME }}.${{ matrix.build_config }}.${{ matrix.platform_sln }}.${{ env.VERSION }}-ALL.zip'
           directory: 'build'
           # directory: 'build/vc/_output/product/${{ matrix.build_config }}.${{ matrix.platform_sln }}'
           exclusions: '*.map *.pdb'
@@ -88,26 +116,19 @@ jobs:
           name: ${{ env.PRG_NAME }}.${{ matrix.build_config }}.${{ matrix.platform_name }}.${{ env.VERSION }}.zip
           path: ${{ env.ZIP_RELEASE_ARCHIVE }}
 
-#      - name: Upload folder
-#        continue-on-error: true
-#        uses: deep-soft/upload-artifact@main
-#        with:
-#          name: ${{ env.PRG_NAME }}.${{ matrix.build_config }}.${{ matrix.platform_name }}
-#          path: _build/vc/_output/product/${{ matrix.build_config }}.${{ matrix.platform_sln }}
-
       - name: Create list file
         continue-on-error: true
         shell: bash
         run: |
           list_file="${{ env.PRG_NAME }}.${{ matrix.build }}-${{ matrix.compiler }}-${{ matrix.arch }}-${{ matrix.platform_sln }}-${{ matrix.platform_name }}-${{ matrix.build_config }}.txt"
           ls -lR > $list_file
-          echo "LIST_File=$list_file" >> GITHUB_ENV
+          echo "LIST_File=$list_file" >> $GITHUB_ENV
 
       - name: Publish
         continue-on-error: true
         uses: deep-soft/action-gh-release@v1
         with:
-          tag_name: ${{ env.TAG_NAME }}-${{ env.VERSION }}
+          tag_name: ${{ env.TAG_NAME }}-${{ env.VERSION }}-ALL
           draft: true
           files: |
             ${{ env.ZIP_RELEASE_ARCHIVE }}
