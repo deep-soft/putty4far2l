@@ -6,7 +6,7 @@ on:
 #    branches: [ master ]
 #  pull_request:
 #    branches: [ master ]
-  workflow_dispatch:    
+  workflow_dispatch:
 
 env:
   TAG_NAME: "putty4far2l"
@@ -21,11 +21,12 @@ jobs:
       matrix:
         build: [ 
                  msbuild_cl_x64_release, 
-                 msbuild_cl_x86_release 
+                 msbuild_cl_x86_release, 
                ]
         include:
           - { build: msbuild_cl_x64_release,   compiler: msbuild_cl, arch: amd64,       platform_sln: x64,   platform_name: x64,   build_config: Release }
           - { build: msbuild_cl_x86_release,   compiler: msbuild_cl, arch: amd64_x86,   platform_sln: Win32, platform_name: x86,   build_config: Release }
+
     steps:
       - name: Checkout source
         uses: deep-soft/checkout@v3
@@ -54,7 +55,7 @@ jobs:
 #         working-directory: _build/vc
 #         run: msbuild -m /property:Configuration=${{ matrix.build_config }} /property:Platform=${{ matrix.platform_sln }} all.sln
 
-       - name: Build
+      - name: Build
         continue-on-error: true
          shell: cmd
          run: |
