@@ -61,7 +61,10 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release
+          mkdir ${{ matrix.platform_name }}
+          cd ${{ matrix.platform_name }}
+          cmake ../.. -DCMAKE_BUILD_TYPE=Release cmake -DCMAKE_GENERATOR_PLATFORM=${{ matrix.platform_name }}
+          cd ..
           cd ..
 
       - name: Create Zip Archive Release
