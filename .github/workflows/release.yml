@@ -14,15 +14,14 @@ env:
   VERSION: "0.78"
 
 jobs:
-#------------------------------------------------------------------------------
   build-msbuild:
     runs-on: windows-2022
     strategy:
       fail-fast: false
       matrix:
         build: [ 
-                 msbuild_cl_x64_release,
-                 msbuild_cl_x86_release,
+                 msbuild_cl_x64_release, 
+                 msbuild_cl_x86_release 
                ]
         include:
           - { build: msbuild_cl_x64_release,   compiler: msbuild_cl, arch: amd64,       platform_sln: x64,   platform_name: x64,   build_config: Release }
