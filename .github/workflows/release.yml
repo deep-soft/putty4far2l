@@ -57,12 +57,12 @@ jobs:
 
       - name: Build 
         continue-on-error: true
-          shell: cmd
-          run: |
-            mkdir build
-            cd build
-            cmake .. -DCMAKE_BUILD_TYPE=Release
-            cd ..
+        shell: cmd
+        run: |
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Release
+          cd ..
 
       - name: Create Zip Archive Release
         # archive name is ${{ env.ZIP_RELEASE_ARCHIVE }}
