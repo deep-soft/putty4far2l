@@ -8,6 +8,7 @@
  * default stuff used for local development runs of 'make'.
  */
 
-#define TEXTVER "Unidentified build with far2l extensions support"
-#define SSHVER "-Unidentified-Local-Build"
-#define BINARY_VERSION 0,0,0,0
+#define RELEASE 0.78
+#define TEXTVER "Release 0.78 build with far2l extensions support"
+#define SSHVER "-Release-0.78-far2l"
+#define BINARY_VERSION 0,78,1,0
