@@ -64,7 +64,7 @@ jobs:
           mkdir ${{ matrix.platform_sln }}
           cd ${{ matrix.platform_sln }}
           cmake ../.. -DCMAKE_BUILD_TYPE=Release -A ${{ matrix.platform_sln }}
-          cmake --build ../..
+          cmake --build .
           cd ..
           cd ..
 
