@@ -7,6 +7,11 @@ on:
 #  pull_request:
 #    branches: [ master ]
   workflow_dispatch:
+    inputs:
+      make_archive_all:
+        description: Make Archive with all files from build dir
+        type: boolean
+        default: false
 
 env:
   TAG_NAME: "putty4far2l"
@@ -98,6 +103,7 @@ jobs:
             ${{ env.ZIP_RELEASE_ARCHIVE }}
 
       - name: Create Zip Archive Release - All
+        if: ${{ inputs.make_archive_all }}
         # archive name is ${{ env.ZIP_RELEASE_ARCHIVE }}
         continue-on-error: true
         uses: deep-soft/zip-release@v2
@@ -110,14 +116,16 @@ jobs:
           recursive_exclusions: '*.map *.pdb changelog'
           path: '.'
 
-      - name: Upload zip
+      - name: Upload zip - All
+        if: ${{ inputs.make_archive_all }}
         continue-on-error: true
         uses: deep-soft/upload-artifact@main
         with:
           name: ${{ env.PRG_NAME }}.${{ matrix.build_config }}.${{ matrix.platform_name }}.${{ env.VERSION }}.zip
           path: ${{ env.ZIP_RELEASE_ARCHIVE }}
 
-      - name: Create list file
+      - name: Create list file - All
+        if: ${{ inputs.make_archive_all }}
         continue-on-error: true
         shell: bash
         run: |
@@ -125,7 +133,8 @@ jobs:
           ls -lR > $list_file
           echo "LIST_File=$list_file" >> $GITHUB_ENV
 
-      - name: Publish
+      - name: Publish - All
+        if: ${{ inputs.make_archive_all }}
         continue-on-error: true
         uses: deep-soft/action-gh-release@v1
         with:
