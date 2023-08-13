@@ -65,7 +65,7 @@ jobs:
           cd ${{ matrix.platform_sln }}
           :: cmake ../.. -DCMAKE_BUILD_TYPE=${{ matrix.build_config }} -A ${{ matrix.platform_sln }}
           cmake ../.. -A ${{ matrix.platform_sln }}
-          cmake --build --config ${{ matrix.build_config }} .
+          cmake --build . --config ${{ matrix.build_config }}
           cd ..
           cd ..
 
