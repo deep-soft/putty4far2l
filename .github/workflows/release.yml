@@ -24,8 +24,8 @@ jobs:
                  msbuild_cl_x86_release, 
                ]
         include:
-          - { build: msbuild_cl_x64_release,   compiler: msbuild_cl, arch: amd64,       platform_sln: x64,   platform_name: x64,   build_config: Release }
-          - { build: msbuild_cl_x86_release,   compiler: msbuild_cl, arch: amd64_x86,   platform_sln: Win32, platform_name: x86,   build_config: Release }
+          - { build: msbuild_cl_x64_release,   compiler: msbuild_cl, arch: amd64,       platform_sln: x64,   platform_name: x64,   build_config: Release,  build_config_type: MinSizeRel}
+          - { build: msbuild_cl_x86_release,   compiler: msbuild_cl, arch: amd64_x86,   platform_sln: Win32, platform_name: x86,   build_config: Release,  build_config_type: MinSizeRel}
 
     steps:
       - name: Checkout source
@@ -63,8 +63,9 @@ jobs:
           cd build
           mkdir ${{ matrix.platform_sln }}
           cd ${{ matrix.platform_sln }}
-          cmake ../.. -DCMAKE_BUILD_TYPE=${{ matrix.build_config }} -A ${{ matrix.platform_sln }}
-          cmake --build -DCMAKE_BUILD_TYPE=${{ matrix.build_config }} .
+          :: cmake ../.. -DCMAKE_BUILD_TYPE=${{ matrix.build_config }} -A ${{ matrix.platform_sln }}
+          cmake ../.. -DCMAKE_BUILD_TYPE=${{ matrix.build_config_type }} -A ${{ matrix.platform_sln }}
+          cmake --build .
           cd ..
           cd ..
 
