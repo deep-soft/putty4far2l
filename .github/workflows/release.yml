@@ -19,18 +19,18 @@ env:
   VERSION: "0.78"
 
 jobs:
-  build-msbuild:
+  build:
     runs-on: windows-2022
     strategy:
       fail-fast: false
       matrix:
         build: [ 
-                 msbuild_cl_x64_release, 
-                 msbuild_cl_x86_release, 
+                 cmake_x64_release, 
+                 cmake_x86_release, 
                ]
         include:
-          - { build: msbuild_cl_x64_release,   compiler: msbuild_cl, arch: amd64,       platform_sln: x64,   platform_name: x64,   build_config: Release }
-          - { build: msbuild_cl_x86_release,   compiler: msbuild_cl, arch: amd64_x86,   platform_sln: Win32, platform_name: x86,   build_config: Release }
+          - { build: cmake_x64_release,   compiler: vc, arch: amd64,       platform_sln: x64,   platform_name: x64,   build_config: Release }
+          - { build: cmake_x86_release,   compiler: vc, arch: amd64_x86,   platform_sln: Win32, platform_name: x86,   build_config: Release }
 
     steps:
       - name: Checkout source
