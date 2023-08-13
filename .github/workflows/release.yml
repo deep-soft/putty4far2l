@@ -84,7 +84,7 @@ jobs:
           directory: 'build/${{ matrix.platform_sln }}/${{ matrix.build_config }}'
           exclusions: '*.map *.pdb'
           recursive_exclusions: '*.map *.pdb changelog'
-          path: 'p*.exe'
+          path: 'p*.exe testcrypt.exe'
 
       - name: Upload zip
         continue-on-error: true
