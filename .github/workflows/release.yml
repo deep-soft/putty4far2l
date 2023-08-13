@@ -77,12 +77,12 @@ jobs:
           recursive_exclusions: '*.map *.pdb changelog'
           path: '.'
 
-       - name: Upload zip
-         continue-on-error: true
-         uses: deep-soft/upload-artifact@main
-         with:
-           name: ${{ env.PRG_NAME }}.${{ matrix.build_config }}.${{ matrix.platform_name }}.${{ env.VERSION }}.zip
-           path: ${{ env.ZIP_RELEASE_ARCHIVE }}
+      - name: Upload zip
+        continue-on-error: true
+        uses: deep-soft/upload-artifact@main
+        with:
+          name: ${{ env.PRG_NAME }}.${{ matrix.build_config }}.${{ matrix.platform_name }}.${{ env.VERSION }}.zip
+          path: ${{ env.ZIP_RELEASE_ARCHIVE }}
 
 #      - name: Upload folder
 #        continue-on-error: true
