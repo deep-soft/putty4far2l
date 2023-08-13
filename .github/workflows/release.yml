@@ -16,7 +16,7 @@ on:
 env:
   TAG_NAME: "putty4far2l"
   PRG_NAME: "putty4far2l"
-  VERSION: "0.78"
+  VERSION: "0.78.0.0"
 
 jobs:
   build:
@@ -40,9 +40,12 @@ jobs:
         continue-on-error: false
         shell: bash
         run: |
-          PROG_VERSION=${{ env.VERSION}}
+          # PROG_VERSION=${{ env.VERSION}}
+          PROG_VERSION=$(grep "RELEASE " version.h | awk '{print $3}')
           echo $PROG_VERSION
-          # echo "VERSION=$PROG_VERSION" >> $GITHUB_ENV
+          if [ $PROG_VERSION != '' ]; then
+            echo "VERSION=$PROG_VERSION" >> $GITHUB_ENV
+          fi
 
       - name: Print program version
         continue-on-error: false
