@@ -55,7 +55,7 @@ jobs:
 #         working-directory: _build/vc
 #         run: msbuild -m /property:Configuration=${{ matrix.build_config }} /property:Platform=${{ matrix.platform_sln }} all.sln
 
-      - name: Build
+      - name: Build 
         continue-on-error: true
           shell: cmd
           run: |
