@@ -42,7 +42,8 @@ jobs:
         shell: bash
         run: |
           # PROG_VERSION=${{ env.VERSION}}
-          PROG_VERSION=$(grep "RELEASE " version.h | awk '{print $3}')
+          # PROG_VERSION=$(grep "RELEASE " version.h | awk '{print $3}')
+          PROG_VERSION=$(grep "BINARY_VERSION " version.h | awk '{print $3}' | tr , .)
           echo $PROG_VERSION
           if [ $PROG_VERSION != '' ]; then
             echo "VERSION=$PROG_VERSION" >> $GITHUB_ENV
