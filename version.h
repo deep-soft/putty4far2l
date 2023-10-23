@@ -11,4 +11,4 @@
 #define RELEASE 0.78
 #define TEXTVER "Release 0.78 build with far2l extensions support"
 #define SSHVER "-Release-0.78-far2l"
-#define BINARY_VERSION 0,78,1,0
+#define BINARY_VERSION 0,78,5,0
