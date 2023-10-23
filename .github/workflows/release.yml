@@ -61,7 +61,9 @@ jobs:
         shell: bash
         run: |
           sed -b -ibak 's!pfd->listbox->listbox.height = 3;!pfd->listbox->listbox.height = 10;!' config.c
+          sed -b -ibak 's!ssd->listbox->listbox.height = 7;!ssd->listbox->listbox.height = 21;!' config.c
           grep "pfd->listbox->listbox.height = " config.c
+          grep "ssd->listbox->listbox.height = " config.c
 
 #       - name: Set MSVC environment
 #         uses: deep-soft/msvc-dev-cmd@v1
