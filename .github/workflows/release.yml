@@ -122,6 +122,24 @@ jobs:
           files: |
             ${{ env.ZIP_RELEASE_ARCHIVE }}
 
+      - name: Prepare latest Release
+        continue-on-error: true
+        shell: bash
+        run: |
+          mv ${{ env.ZIP_RELEASE_ARCHIVE }} ${{ env.PRG_NAME }}.${{ matrix.platform_name }}.zip
+          echo "${{ env.VERSION }}" > ${{ env.PRG_NAME }}-latest.txt
+
+      - name: Publish latest Release
+        continue-on-error: true
+        uses: deep-soft/action-gh-release@v1
+        with:
+          draft: false
+          tag_name: ${{ env.PRG_NAME }}-latest
+          body: "${{ env.PRG_NAME }} latest: v${{ env.VERSION }}"
+          files: |
+            ${{ env.PRG_NAME }}.${{ matrix.platform_name }}.zip
+            ${{ env.PRG_NAME }}-latest.txt
+
       - name: Create Zip Archive Release - All
         if: ${{ inputs.make_archive_all }}
         # archive name is ${{ env.ZIP_RELEASE_ARCHIVE }}
