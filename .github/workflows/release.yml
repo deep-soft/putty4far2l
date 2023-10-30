@@ -64,7 +64,7 @@ jobs:
           sed -b -ibak 's!ssd->listbox->listbox.height = 7;!ssd->listbox->listbox.height = 20;!' config.c
           sed -b -ibak 's!pds, TREE_BASE, IDCX_STDBASE, 3, 3, 235!pds, TREE_BASE, IDCX_STDBASE, 3, 3, 335!' windows/dialog.c
           sed -b -ibak 's!r.bottom = r.top + 219;!r.bottom = r.top + 319;!' windows/dialog.c
-          sed -b -ibak 's!IDD_MAINBOX DIALOG DISCARDABLE 0, 0, 300, 252!IDD_MAINBOX DIALOG DISCARDABLE 0, 0, 300, 352!' windows/putty-common.rc2
+          sed -b -ibak 's!IDD_MAINBOX DIALOG DISCARDABLE 0, 0, 300, 252!IDD_MAINBOX DIALOG DISCARDABLE 0, 0, 400, 352!' windows/putty-common.rc2
           grep "pfd->listbox->listbox.height = " config.c
           grep "ssd->listbox->listbox.height = " config.c
           grep "pds, TREE_BASE, IDCX_STDBASE, 3, 3," windows/dialog.c
