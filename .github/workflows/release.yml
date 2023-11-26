@@ -149,10 +149,10 @@ jobs:
           type: 'zip'
           filename: '${{ env.PRG_NAME }}.${{ matrix.build_config }}.${{ matrix.platform_name }}.${{ env.VERSION }}-ALL.zip'
           directory: './'
+          path: '.'
           # directory: 'build/vc/_output/product/${{ matrix.build_config }}.${{ matrix.platform_name }}'
           exclusions: '*.map *.pdb'
           recursive_exclusions: '*.map *.pdb changelog'
-          path: '.'
 
       - name: Upload zip - All
         if: ${{ inputs.make_archive_all }}
